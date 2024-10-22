@@ -34,10 +34,10 @@ public class InventoryRecord {
         private Integer quantity;
 
         @Column(name = "costprice")
-        private long costprice;
+        private Integer costprice;
 
         @Column(name = "sellprice")
-        private long sellprice;
+        private Integer sellprice;
 
     }
 
