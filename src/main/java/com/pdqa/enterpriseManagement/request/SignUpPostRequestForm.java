@@ -11,6 +11,6 @@ import java.util.List;
 @AllArgsConstructor
 public class SignUpPostRequestForm {
     String enterpriseName;
-    ArrayList<Pair<Integer,Integer>> listOfStoreDetails;
+    ArrayList<ArrayList<Integer>> listOfStoreDetails;
     String password;
 }

@@ -26,12 +26,12 @@ public class EnterpriseController {
     @PostMapping(value = "/signup")
     public ResponseEntity<SignUpPostResponseForm> signUpPostController(@RequestBody SignUpPostRequestForm signUpPostRequestForm){
         String enterpriseName=signUpPostRequestForm.getEnterpriseName();
-        ArrayList<Pair<Integer, Integer>> counterOnStores = signUpPostRequestForm.getListOfStoreDetails();
+        ArrayList<ArrayList<Integer>> counterOnStores = signUpPostRequestForm.getListOfStoreDetails();
         String password =signUpPostRequestForm.getPassword();
         SignUpPostResponseForm signUpPostResponseForm = enterpriseCreationService.createEnterprise(enterpriseName,counterOnStores,password);
         return new ResponseEntity<SignUpPostResponseForm>(signUpPostResponseForm,HttpStatus.CREATED);
     }
-    @PostMapping(value = "/login")
+    @PostMapping (value = "/login")
     public ResponseEntity<EntLoginResponse> loginToEnterpriseController(@RequestBody EntLoginRequestForm enterpriseLogin){
         return enterpriseCreationService.enterpriseLogin(
                 enterpriseLogin.getEnterpriseLoginId(),

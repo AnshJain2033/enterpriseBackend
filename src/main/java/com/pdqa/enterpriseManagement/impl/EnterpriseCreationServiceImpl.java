@@ -23,23 +23,23 @@ public class EnterpriseCreationServiceImpl implements EnterpriseCreationService 
     EnterpriseRepository enterpriseRepository;
 
     @Override
-    public SignUpPostResponseForm createEnterprise(String enterpriseName,ArrayList<Pair<Integer, Integer>> counterOnStores,String password){
+    public SignUpPostResponseForm createEnterprise(String enterpriseName,ArrayList<ArrayList<Integer>> counterOnStores,String password){
         String entId=UUID.randomUUID().toString();
         List<StoreDetail>listOfStores = createStore(counterOnStores,entId);
         enterpriseRepository.insert(new EnterpriseRecord(entId,enterpriseName,listOfStores,password));
         return new SignUpPostResponseForm(entId,listOfStores);
     }
     @Override
-    public List<StoreDetail> createStore(List<Pair<Integer,Integer>> listOfCounterRequired,String entId){
+    public List<StoreDetail> createStore(List<ArrayList<Integer>> listOfCounterRequired,String entId){
         List<StoreDetail> listOfStores= new ArrayList<>();
         for(int i=0;i<listOfCounterRequired.size();i++){
             String storeId= UUID.randomUUID().toString();
             List<BillingCounterDetail> billingCounterDetails = new ArrayList<>();
             List<InventoryCounterDetail> inventoryCounterDetails = new ArrayList<>();
-            for(int j=0;j<listOfCounterRequired.get(i).getFirst();j++){
+            for(int j=0;j<listOfCounterRequired.get(i).get(0);j++){
                 inventoryCounterDetails.add(new InventoryCounterDetail(UUID.randomUUID().toString(),storeId,entId));
             }
-            for(int j=0;j<listOfCounterRequired.get(i).getSecond();j++){
+            for(int j=0;j<listOfCounterRequired.get(i).get(1);j++){
                 billingCounterDetails.add(new BillingCounterDetail(UUID.randomUUID().toString(),storeId,entId));
             }
             listOfStores.add(new StoreDetail(storeId,inventoryCounterDetails,billingCounterDetails));
@@ -48,9 +48,12 @@ public class EnterpriseCreationServiceImpl implements EnterpriseCreationService 
     }
     @Override
     public ResponseEntity<EntLoginResponse> enterpriseLogin(String enterpriseId, String password){
-        Optional<EnterpriseRecord> enterpriseRecord = enterpriseRepository.findById(enterpriseId);
+        Optional<EnterpriseRecord> enterpriseRecord = enterpriseRepository.findByEnterpriseId(enterpriseId);
         if(!enterpriseRecord.isEmpty()){
-            return ResponseEntity.ok(new EntLoginResponse(enterpriseRecord.get(),"Login Successful"));
+            if(enterpriseRecord.get().getPassword().equals(password)){
+                return ResponseEntity.ok(new EntLoginResponse(enterpriseRecord.get(),"Login Successful"));
+            }
+            else{return ResponseEntity.ok(new EntLoginResponse(null,"Wrong Password"));}
         }else{return ResponseEntity.ok(new EntLoginResponse(null,"Invalid Enterprise ID"));}
     }
 }

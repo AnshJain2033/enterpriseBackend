@@ -10,10 +10,12 @@ import java.util.List;
 
 @Data
 @AllArgsConstructor
-@Document(collation = "enterprisedb")
+@Document(collection = "enterpriseRecord")
+
 public class EnterpriseRecord {
     @Id
-    String enterpriseId;
+    String id;
+
     String enterpriseName;
     List<StoreDetail> listOfStores;
     String password;

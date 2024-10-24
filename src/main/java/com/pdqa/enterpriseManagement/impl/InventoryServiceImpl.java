@@ -60,7 +60,7 @@ public class InventoryServiceImpl implements InventoryService {
         return ResponseEntity.ok(listOfProducts);
     }
     public ResponseEntity<List<ProductRecord>> getAllProductsByEnterpriseId(String enterpriseId){
-        if(!enterpriseRepository.findById(enterpriseId).isEmpty()){
+        if(!enterpriseRepository.findByEnterpriseId(enterpriseId).isEmpty()){
             return ResponseEntity.ok(productRepository.findByEnterpriseId(enterpriseId));
         }
         return null;

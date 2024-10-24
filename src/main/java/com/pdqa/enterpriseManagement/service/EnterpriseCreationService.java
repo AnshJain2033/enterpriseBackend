@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public interface EnterpriseCreationService {
-    public SignUpPostResponseForm createEnterprise(String enterpriseName, ArrayList<Pair<Integer, Integer>> counterOnStores, String password);
-    public List<StoreDetail> createStore(List<Pair<Integer,Integer>>listOfCounters, String entId);
+    public SignUpPostResponseForm createEnterprise(String enterpriseName, ArrayList<ArrayList<Integer>> counterOnStores, String password);
+    public List<StoreDetail> createStore(List<ArrayList<Integer>>listOfCounters, String entId);
     public ResponseEntity<EntLoginResponse> enterpriseLogin(String enterpriseId, String password);
 }
