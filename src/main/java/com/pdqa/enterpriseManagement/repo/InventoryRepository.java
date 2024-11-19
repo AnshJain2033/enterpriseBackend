@@ -15,6 +15,6 @@ public interface InventoryRepository extends JpaRepository<InventoryRecord,Strin
     InventoryRecord findByEnterpriseIdAndStoreIdAndProductId(@Param("enterpriseId")String enterpriseId, @Param("productId")String productId,@Param("storeId")String storeId);
     @Query("SELECT ir FROM InventoryRecord ir WHERE ir.enterpriseId = :enterpriseId AND ir.storeId = :storeId")
     List<InventoryRecord> findByEnterpriseIdAndStoreId(@Param("enterpriseId")String enterpriseId,@Param("storeId")String storeId);
-    @Query("UPDATE  ir FROM InventoryRecord SET ir.quantity = :quantity WHERE ir.inventoryId = :inventoryId")
+    @Query("UPDATE  ir FROM InventoryRecord ir SET ir.quantity = :quantity WHERE ir.inventoryId = :inventoryId")
     InventoryRecord findByInventoryIdAndUpdateQuantity(@Param("inventoryId")String inventoryId,@Param("quantity")Integer quantity);
 }
