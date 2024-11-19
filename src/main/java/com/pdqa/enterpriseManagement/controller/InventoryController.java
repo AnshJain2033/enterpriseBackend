@@ -24,7 +24,7 @@ public class InventoryController {
                     createProductRequestForm.getProductDetails(),
                     createProductRequestForm.getEnterpriseId()
             );
-            if(products.equals(null)){return ResponseEntity.ok(null);}
+
             return products;
         }
         else{return ResponseEntity.ok(null);}

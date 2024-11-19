@@ -47,9 +47,8 @@ public class InventoryServiceImpl implements InventoryService {
 
         List<ProductRecord> listOfProducts = new ArrayList<>();
         mappingOfProduct.forEach((productId, productDetail) -> {
-            if (productRepository.
-                    findByEnterpriseIdAndProductName(
-                            enterpriseId, productDetail.getProductName()).equals(null)) {
+            Optional<ProductRecord>existingProduct = Optional.ofNullable(productRepository.findByEnterpriseIdAndProductName(enterpriseId, productDetail.getProductName()));
+            if (existingProduct.isEmpty()) {
                 ProductKey productKey = new ProductKey(enterpriseId,productId);
 
                 ProductRecord productRecord = new ProductRecord(productKey, productDetail);
