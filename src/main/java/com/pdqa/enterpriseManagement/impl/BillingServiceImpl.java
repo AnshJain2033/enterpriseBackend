@@ -40,23 +40,28 @@ public class BillingServiceImpl implements BillingService {
         List<BilledProducts> billedProductsList = new ArrayList<>();
 
         listOfPurchases.forEach((purchase)->{
-            ProductRecord product = productRepository.findByEnterpriseIdAndProductName(enterpriseId,purchase.getProductName());
-            InventoryRecord inventoryRecord = inventoryService.getInventory(product.getProductKey().getProductId(),enterpriseId,storeId);
-            if(inventoryRecord.getQuantity()>=purchase.getBilledUnits()){
-                Integer currentInventory = inventoryRecord.getQuantity();
-                Integer purchasedInventory = purchase.getBilledUnits();
-                inventoryService.setInventory(inventoryRecord.getInventoryId(),currentInventory-purchasedInventory);
-                Integer sellingPrice = purchase.getBilledUnits()*inventoryRecord.getSellprice();
-                BilledProducts billedProducts = new BilledProducts(product.getProductKey().getProductId(),sellingPrice,purchase.getBilledUnits(),counterId,enterpriseId,storeId);
-                billedProductsList.add(billedProducts);
+            Optional<ProductRecord> product = Optional.ofNullable(productRepository.findByEnterpriseIdAndProductName(enterpriseId,purchase.getProductName()));
+            if(!product.isEmpty()) {
+                InventoryRecord inventoryRecord = inventoryService.getInventory(product.get().getProductKey().getProductId(), enterpriseId, storeId);
+                if (inventoryRecord.getQuantity() >= purchase.getBilledUnits()) {
+                    Integer currentInventory = inventoryRecord.getQuantity();
+                    Integer purchasedInventory = purchase.getBilledUnits();
+                    inventoryService.setInventory(inventoryRecord.getInventoryId(), currentInventory - purchasedInventory);
+                    Integer sellingPrice = purchase.getBilledUnits() * inventoryRecord.getSellprice();
+                    BilledProducts billedProducts = new BilledProducts(product.get().getProductKey().getProductId(), sellingPrice, purchase.getBilledUnits(), counterId, enterpriseId, storeId);
+                    billedProductsList.add(billedProducts);
+                }
             }
         });
-        BillingRecord billingRecord = new BillingRecord();
-        billingRecord.setBillingId(billingId);
-        billingRecord.setSellingDate(LocalDate.now());
-        billingRecord.setListOfProducts(billedProductsList);
-        billingRepository.save(billingRecord);
-        return billingRecord;
+        if(!billedProductsList.isEmpty()) {
+            BillingRecord billingRecord = new BillingRecord();
+            billingRecord.setBillingId(billingId);
+            billingRecord.setSellingDate(LocalDate.now());
+            billingRecord.setListOfProducts(billedProductsList);
+            billingRepository.save(billingRecord);
+            return billingRecord;
+        }
+        return null;
     }
     public BillingRecord updateBill(UpdateExistingBillUsingBillingId bill){
         String billingId = bill.getBillingId();
