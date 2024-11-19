@@ -17,8 +17,7 @@ import java.util.Map;
 public class BillingRecord {
     @Id
     private String billingId;
-    private List<Map<ProductKey,Integer>>  listOfProducts;
-//    private Integer purchaseAmount;
+    private List<BilledProducts>  listOfProducts;
     private LocalDate sellingDate;
-    private String billngName;
+//    private String billingName;
 }
