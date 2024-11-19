@@ -2,6 +2,7 @@ package com.pdqa.enterpriseManagement.repoImpl;
 
 import com.pdqa.enterpriseManagement.model.InventoryRecord;
 import com.pdqa.enterpriseManagement.repo.InventoryRepository;
+import org.springframework.context.annotation.Bean;
 import org.springframework.transaction.annotation.Transactional;
 
 public class InventoryRepositoryImpl{

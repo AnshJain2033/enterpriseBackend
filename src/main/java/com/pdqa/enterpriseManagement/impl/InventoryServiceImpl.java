@@ -15,6 +15,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import org.springframework.context.annotation.Bean;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
@@ -101,6 +102,7 @@ public class InventoryServiceImpl implements InventoryService {
     public List<InventoryRecord> getAllInventory(String enterpriseId,String storeId){
         return inventoryRepository.findByEnterpriseIdAndStoreId(enterpriseId,storeId);
     }
+    @Autowired
     InventoryRepositoryImpl inventoryRepositoryImpl;
     public void setInventory(String inventoryId,Integer amount){
         inventoryRepositoryImpl.findByInventoryIdAndUpdateQuantity(inventoryId,amount);
