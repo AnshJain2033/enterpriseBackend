@@ -65,7 +65,7 @@ public class InventoryServiceImpl implements InventoryService {
         return null;
     }
     public InventoryRecord createInventory(
-            String productId,
+            String productName,
     Integer costPrice,
     Integer sellingPrice,
     String enterpriseId,
@@ -74,7 +74,7 @@ public class InventoryServiceImpl implements InventoryService {
     Integer numberOfUnits
     ) {
 
-        if (!Optional.ofNullable(productRepository.findByEnterpriseIdAndProductId(enterpriseId,productId)).isEmpty()) {
+        if (!Optional.ofNullable(productRepository.findByEnterpriseIdAndProductName(enterpriseId,productName)).isEmpty()) {
             InventoryRecord inventoryRecord = new InventoryRecord();
             inventoryRecord.setInventoryId(UUID.randomUUID().toString());
             inventoryRecord.setCostprice(costPrice);
@@ -83,7 +83,7 @@ public class InventoryServiceImpl implements InventoryService {
             inventoryRecord.setEnterpriseId(enterpriseId);
             inventoryRecord.setCounterId(counterId);
             inventoryRecord.setStoreId(storeId);
-            inventoryRecord.setProductId(productId);
+            inventoryRecord.setProductId(productName);
             inventoryRepository.save(inventoryRecord);
             return inventoryRecord;
         }

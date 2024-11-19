@@ -35,14 +35,14 @@ public class InventoryController {
     }
     @PostMapping("/createInventoryRecord")
     public ResponseEntity<InventoryRecord> createInventory(@RequestBody CreateInventoryRequest createInventoryRecord){
-        String productId = createInventoryRecord.getProductId();
+        String productName= createInventoryRecord.getProductName();
         String enterpriseId = createInventoryRecord.getEnterpriseId();
         Integer costPrice = createInventoryRecord.getCostPrice();
         Integer sellPrice = createInventoryRecord.getSellingPrice();
         Integer quantity = createInventoryRecord.getNumberOfUnits();
         String counterId = createInventoryRecord.getCounterId();
         String storeId = createInventoryRecord.getStoreId();
-        return ResponseEntity.ok(inventoryService.createInventory(productId,costPrice,sellPrice,enterpriseId,storeId,counterId,quantity));
+        return ResponseEntity.ok(inventoryService.createInventory(productName,costPrice,sellPrice,enterpriseId,storeId,counterId,quantity));
     }
     @GetMapping("/getInventory")
     public ResponseEntity<InventoryRecord>getInventory(@RequestParam("productId") String productId,@RequestParam("enterpriseId") String enterpriseId,@RequestParam("storeId")String storeId){

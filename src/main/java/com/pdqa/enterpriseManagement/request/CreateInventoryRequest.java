@@ -4,7 +4,7 @@ import lombok.Data;
 
 @Data
 public class CreateInventoryRequest {
-    String productId;
+    String productName;
     Integer costPrice;
     Integer sellingPrice;
     String enterpriseId;
