@@ -99,5 +99,11 @@ public class BillingServiceImpl implements BillingService {
         });
         return billedProductsList;
     }
-
+    public BillingRecord getBill(String billingId){
+        Optional<BillingRecord> billingRecord = billingRepository.findById(billingId);
+        if(!billingRecord.isEmpty()){
+            return billingRecord.get();
+        }
+        return null;
+    }
 }

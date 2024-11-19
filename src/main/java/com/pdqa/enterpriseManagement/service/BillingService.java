@@ -8,4 +8,5 @@ import com.pdqa.enterpriseManagement.request.UpdateExistingBillUsingBillingId;
 public interface BillingService {
     public BillingRecord createBill(CreateNewBill bill);
     public BillingRecord updateBill(UpdateExistingBillUsingBillingId bill);
+    public BillingRecord getBill(String billingId);
 }
