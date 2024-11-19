@@ -24,7 +24,7 @@ public class BillingController {
         return ResponseEntity.ok(billingService.updateBill(billDetail));
     }
     @GetMapping("/getBill")
-    public ResponseEntity<BillingRecord> getBill(@RequestParam String  billingId){
+    public ResponseEntity<BillingRecord> getBill(@RequestParam("billingId") String  billingId){
         return ResponseEntity.ok(billingService.getBill(billingId));
     }
 }
