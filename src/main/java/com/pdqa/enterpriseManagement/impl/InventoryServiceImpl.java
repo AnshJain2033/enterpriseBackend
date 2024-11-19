@@ -75,6 +75,10 @@ public class InventoryServiceImpl implements InventoryService {
     ) {
         Optional<ProductRecord>product = Optional.ofNullable(productRepository.findByEnterpriseIdAndProductName(enterpriseId,productName));
         if (!product.isEmpty()) {
+            Optional<InventoryRecord> tempInventoryRecord = Optional.ofNullable(inventoryRepository.findByEnterpriseIdAndStoreIdAndProductId(enterpriseId,product.get().getProductKey().getProductId(),storeId));
+            if(!tempInventoryRecord.isEmpty()){
+                return tempInventoryRecord.get();
+            }
             InventoryRecord inventoryRecord = new InventoryRecord();
             inventoryRecord.setInventoryId(UUID.randomUUID().toString());
             inventoryRecord.setCostprice(costPrice);
