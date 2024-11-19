@@ -17,4 +17,5 @@ public class ProductRecord {
         @Embedded
         @Column(name = "productDetail")
         private ProductDetail productDetail;
+        public ProductRecord() {}
 }
