@@ -11,5 +11,4 @@ import org.springframework.stereotype.Repository;
 public interface InventoryRepository extends JpaRepository<InventoryRecord,String>{
     @Query("SELECT ir FROM InventoryRecord ir WHERE ir.enterpriseId = :enterpriseId AND ir.productId = :productId AND ir.storeId = :storeId")
     InventoryRecord findByEnterpriseIdAndStoreIdAndProductId(@Param("enterpriseId")String enterpriseId, @Param("productId")String productId,@Param("storeId")String storeId);
-
 }

@@ -17,4 +17,8 @@ public interface ProductRepository extends JpaRepository<ProductRecord, ProductK
 
     @Query("SELECT pr FROM ProductRecord pr WHERE pr.productKey.enterpriseId = :enterpriseId")
     List<ProductRecord> findByEnterpriseId(@Param("enterpriseId")String enterpriseId);
+
+    @Query("SELECT pr FROM ProductRecord pr WHERE pr.productKey.enterpriseId = :enterpriseId AND pr.productKey.productId = :productId")
+    ProductRecord findByEnterpriseIdAndProductId(@Param("enterpriseId")String enterpriseId, @Param("productId")String productId);
+
 }

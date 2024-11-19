@@ -74,7 +74,7 @@ public class InventoryServiceImpl implements InventoryService {
     Integer numberOfUnits
     ) {
 
-        if (!productRepository.findById(new ProductKey(enterpriseId, productId)).isEmpty()) {
+        if (!Optional.ofNullable(productRepository.findByEnterpriseIdAndProductId(enterpriseId,productId)).isEmpty()) {
             InventoryRecord inventoryRecord = new InventoryRecord();
             inventoryRecord.setInventoryId(UUID.randomUUID().toString());
             inventoryRecord.setCostprice(costPrice);
