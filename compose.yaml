@@ -1,15 +1,15 @@
 version: '3.8'
 
 services:
-#  mongodb:
-#    image: mongo:6.0
-#    container_name: mongodb
-#    ports:
-#      - "27018:27017"
-#    volumes:
-#      - mongo-data:/data/db
-#    networks:
-#      - enterprise-management-network
+  mongodb:
+    image: mongo:6.0
+    container_name: mongodb
+    ports:
+      - "27018:27017"
+    volumes:
+      - mongo-data:/data/db
+    networks:
+      - enterprise-management-network
 
   mysql:
     image: mysql:8.0

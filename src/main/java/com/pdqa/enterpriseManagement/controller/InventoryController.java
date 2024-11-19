@@ -18,8 +18,8 @@ public class InventoryController {
     @Autowired
     InventoryService inventoryService;
     @PostMapping("/addProduct")
-    public ResponseEntity<List<ProductRecord>>createNewProduct(@RequestBody CreateProductRequestForm createProductRequestForm,String enterpriseId){
-        if((!createProductRequestForm.getProductDetails().isEmpty())&& enterpriseId!=null){
+    public ResponseEntity<List<ProductRecord>>createNewProduct(@RequestBody CreateProductRequestForm createProductRequestForm){
+        if((!createProductRequestForm.getProductDetails().isEmpty())){
             return inventoryService.createProductInfoMapper(
                     createProductRequestForm.getProductDetails(),
                     createProductRequestForm.getEnterpriseId()
