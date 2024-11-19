@@ -13,4 +13,6 @@ public class ProductKey {
     public String enterpriseId;
     @Column(name = "productId")
     public String productId;
+    // No-argument constructor
+    public ProductKey() {}
 }
