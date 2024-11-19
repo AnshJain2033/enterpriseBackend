@@ -8,7 +8,7 @@ import com.pdqa.enterpriseManagement.model.ProductRecord;
 import com.pdqa.enterpriseManagement.repo.EnterpriseRepository;
 import com.pdqa.enterpriseManagement.repo.InventoryRepository;
 import com.pdqa.enterpriseManagement.repo.ProductRepository;
-import com.pdqa.enterpriseManagement.repoImpl.InventoryRepositoryImpl;
+//import com.pdqa.enterpriseManagement.repoImpl.InventoryRepositoryImpl;
 import com.pdqa.enterpriseManagement.request.CreateInventoryRequest;
 import com.pdqa.enterpriseManagement.service.InventoryService;
 import jakarta.persistence.GeneratedValue;
@@ -102,9 +102,11 @@ public class InventoryServiceImpl implements InventoryService {
     public List<InventoryRecord> getAllInventory(String enterpriseId,String storeId){
         return inventoryRepository.findByEnterpriseIdAndStoreId(enterpriseId,storeId);
     }
-    @Autowired
-    InventoryRepositoryImpl inventoryRepositoryImpl;
+//    @Autowired
+//    InventoryRepositoryImpl inventoryRepositoryImpl;
     public void setInventory(String inventoryId,Integer amount){
-        inventoryRepositoryImpl.findByInventoryIdAndUpdateQuantity(inventoryId,amount);
+        InventoryRecord inventoryRecord =inventoryRepository.findById(inventoryId).get();
+        inventoryRecord.setQuantity(amount);
+        inventoryRepository.save(inventoryRecord);
     }
 }
