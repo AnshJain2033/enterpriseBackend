@@ -20,10 +20,12 @@ public class InventoryController {
     @PostMapping("/addProduct")
     public ResponseEntity<List<ProductRecord>>createNewProduct(@RequestBody CreateProductRequestForm createProductRequestForm){
         if((!createProductRequestForm.getProductDetails().isEmpty())){
-            return inventoryService.createProductInfoMapper(
+            ResponseEntity<List<ProductRecord>> products = inventoryService.createProductInfoMapper(
                     createProductRequestForm.getProductDetails(),
                     createProductRequestForm.getEnterpriseId()
             );
+            if(products.equals(null)){return ResponseEntity.ok(null);}
+            return products;
         }
         else{return ResponseEntity.ok(null);}
     }
