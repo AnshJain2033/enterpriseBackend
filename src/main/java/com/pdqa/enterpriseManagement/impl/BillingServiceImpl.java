@@ -42,12 +42,12 @@ public class BillingServiceImpl implements BillingService {
         listOfPurchases.forEach((purchase)->{
             Optional<ProductRecord> product = Optional.ofNullable(productRepository.findByEnterpriseIdAndProductName(enterpriseId,purchase.getProductName()));
             if(!product.isEmpty()) {
-                InventoryRecord inventoryRecord = inventoryService.getInventory(product.get().getProductKey().getProductId(), enterpriseId, storeId);
-                if (inventoryRecord.getQuantity() >= purchase.getBilledUnits()) {
-                    Integer currentInventory = inventoryRecord.getQuantity();
+                Optional<InventoryRecord> inventoryRecord = Optional.ofNullable(inventoryService.getInventory(product.get().getProductKey().getProductId(), enterpriseId, storeId));
+                if ((!inventoryRecord.isEmpty())&&inventoryRecord.get().getQuantity() >= purchase.getBilledUnits() ) {
+                    Integer currentInventory = inventoryRecord.get().getQuantity();
                     Integer purchasedInventory = purchase.getBilledUnits();
-                    inventoryService.setInventory(inventoryRecord.getInventoryId(), currentInventory - purchasedInventory);
-                    Integer sellingPrice = purchase.getBilledUnits() * inventoryRecord.getSellprice();
+                    inventoryService.setInventory(inventoryRecord.get().getInventoryId(), currentInventory - purchasedInventory);
+                    Integer sellingPrice = purchase.getBilledUnits() * inventoryRecord.get().getSellprice();
                     BilledProducts billedProducts = new BilledProducts(product.get().getProductKey().getProductId(), sellingPrice, purchase.getBilledUnits(), counterId, enterpriseId, storeId);
                     billedProductsList.add(billedProducts);
                 }
@@ -84,15 +84,17 @@ public class BillingServiceImpl implements BillingService {
         List<BilledProducts> billedProductsList = new ArrayList<>();
 
         listOfPurchases.forEach((purchase)->{
-            ProductRecord product = productRepository.findByEnterpriseIdAndProductName(enterpriseId,purchase.getProductName());
-            InventoryRecord inventoryRecord = inventoryService.getInventory(product.getProductKey().getProductId(),enterpriseId,storeId);
-            if(inventoryRecord.getQuantity()>=purchase.getBilledUnits()){
-                Integer currentInventory = inventoryRecord.getQuantity();
-                Integer purchasedInventory = purchase.getBilledUnits();
-                inventoryService.setInventory(inventoryRecord.getInventoryId(),currentInventory-purchasedInventory);
-                Integer sellingPrice = purchase.getBilledUnits()*inventoryRecord.getSellprice();
-                BilledProducts billedProducts = new BilledProducts(product.getProductKey().getProductId(),sellingPrice,purchase.getBilledUnits(),counterId,enterpriseId,storeId);
-                billedProductsList.add(billedProducts);
+            Optional<ProductRecord> product = Optional.ofNullable(productRepository.findByEnterpriseIdAndProductName(enterpriseId,purchase.getProductName()));
+            if(!product.isEmpty()) {
+                Optional<InventoryRecord> inventoryRecord = Optional.ofNullable(inventoryService.getInventory(product.get().getProductKey().getProductId(), enterpriseId, storeId));
+                if ((!inventoryRecord.isEmpty())&&inventoryRecord.get().getQuantity() >= purchase.getBilledUnits() ) {
+                    Integer currentInventory = inventoryRecord.get().getQuantity();
+                    Integer purchasedInventory = purchase.getBilledUnits();
+                    inventoryService.setInventory(inventoryRecord.get().getInventoryId(), currentInventory - purchasedInventory);
+                    Integer sellingPrice = purchase.getBilledUnits() * inventoryRecord.get().getSellprice();
+                    BilledProducts billedProducts = new BilledProducts(product.get().getProductKey().getProductId(), sellingPrice, purchase.getBilledUnits(), counterId, enterpriseId, storeId);
+                    billedProductsList.add(billedProducts);
+                }
             }
         });
         return billedProductsList;
