@@ -83,7 +83,8 @@ public class InventoryServiceImpl implements InventoryService {
             inventoryRecord.setEnterpriseId(enterpriseId);
             inventoryRecord.setCounterId(counterId);
             inventoryRecord.setStoreId(storeId);
-            inventoryRecord.setProductId(productName);
+            ProductRecord tempProduct = productRepository.findByEnterpriseIdAndProductName(enterpriseId,productName);
+            inventoryRecord.setProductId(tempProduct.getProductKey().getProductId());
             inventoryRepository.save(inventoryRecord);
             return inventoryRecord;
         }
