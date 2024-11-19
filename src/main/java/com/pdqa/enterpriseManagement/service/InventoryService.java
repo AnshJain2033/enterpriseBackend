@@ -24,4 +24,5 @@ public interface InventoryService {
     );
     public InventoryRecord getInventory(String productId,String enterpriseId,String storeId);
     public void setInventory(String inventoryId,Integer amount);
+    public List<InventoryRecord> getAllInventory(String enterpriseId,String storeId);
 }

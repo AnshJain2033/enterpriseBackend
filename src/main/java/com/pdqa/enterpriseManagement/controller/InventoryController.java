@@ -48,6 +48,10 @@ public class InventoryController {
     public ResponseEntity<InventoryRecord>getInventory(@RequestParam("productId") String productId,@RequestParam("enterpriseId") String enterpriseId,@RequestParam("storeId")String storeId){
             return ResponseEntity.ok(inventoryService.getInventory(productId,enterpriseId,storeId));
     }
+    @GetMapping("/getAllInventory")
+    public ResponseEntity<List<InventoryRecord>>getAllInventory(@RequestParam("enterpriseId") String enterpriseId,@RequestParam("storeId")String storeId){
+        return ResponseEntity.ok(inventoryService.getAllInventory(enterpriseId,storeId));
+    }
     @PutMapping("/updateInventory")
     public ResponseEntity<String>updateInventory(@RequestParam("inventoryId")String inventoryId,@RequestParam("amount")Integer amount){
         inventoryService.setInventory(inventoryId,amount);

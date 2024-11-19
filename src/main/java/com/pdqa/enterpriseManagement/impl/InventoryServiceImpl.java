@@ -92,6 +92,9 @@ public class InventoryServiceImpl implements InventoryService {
     public InventoryRecord getInventory(String productId,String enterpriseId,String storeId){
         return inventoryRepository.findByEnterpriseIdAndStoreIdAndProductId(enterpriseId,productId,storeId);
     }
+    public List<InventoryRecord> getAllInventory(String enterpriseId,String storeId){
+        return inventoryRepository.findByEnterpriseIdAndStoreId(enterpriseId,storeId);
+    }
     public void setInventory(String inventoryId,Integer amount){
         inventoryRepository.findById(inventoryId).get().setQuantity(amount);
     }

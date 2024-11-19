@@ -7,8 +7,12 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 public interface InventoryRepository extends JpaRepository<InventoryRecord,String>{
     @Query("SELECT ir FROM InventoryRecord ir WHERE ir.enterpriseId = :enterpriseId AND ir.productId = :productId AND ir.storeId = :storeId")
     InventoryRecord findByEnterpriseIdAndStoreIdAndProductId(@Param("enterpriseId")String enterpriseId, @Param("productId")String productId,@Param("storeId")String storeId);
+    @Query("SELECT ir FROM InventoryRecord ir WHERE ir.enterpriseId = :enterpriseId AND ir.storeId = :storeId")
+    List<InventoryRecord> findByEnterpriseIdAndStoreId(@Param("enterpriseId")String enterpriseId,@Param("storeId")String storeId);
 }
