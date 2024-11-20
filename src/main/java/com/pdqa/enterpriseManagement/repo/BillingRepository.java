@@ -17,5 +17,6 @@ public interface BillingRepository extends MongoRepository<BillingRecord,String>
     @Query("{ 'id': { $eq: ?0 } }")
     public Optional<BillingRecord> findByBillingId(String id);
     BilledProducts save(BilledProducts billedProducts);
+    @Query("{ 'id': { $eq: ?0 }, 'update': { '$set': { 'listOfProducts': ?1 }}}")
     public void updateByBillingId(String id, List<BilledProducts> billedProductsList);
 }
