@@ -70,8 +70,8 @@ public class BillingServiceImpl implements BillingService {
             List<BilledProducts> existingListOfBilledProducts = new ArrayList<>(billingRecord.get().getListOfProducts());
             List<BilledProducts>billedProductsList = new ArrayList<>(helperFunction(bill.getBill()));
             existingListOfBilledProducts.addAll(billedProductsList);
-            billingRecord.get().setListOfProducts(existingListOfBilledProducts);
-            billingRepository.insert(billingRecord.get());
+            billingRepository.updateByBillingId(billingId,existingListOfBilledProducts);
+            billingRecord = billingRepository.findByBillingId(billingId);
         }
         return billingRecord.get();
     }
