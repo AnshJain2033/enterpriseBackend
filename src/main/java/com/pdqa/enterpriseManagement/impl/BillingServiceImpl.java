@@ -65,7 +65,7 @@ public class BillingServiceImpl implements BillingService {
     }
     public BillingRecord updateBill(UpdateExistingBillUsingBillingId bill){
         String billingId = bill.getBillingId();
-        Optional<BillingRecord> billingRecord = billingRepository.findById(billingId);
+        Optional<BillingRecord> billingRecord = billingRepository.findByBillingId(billingId);
         if(!billingRecord.isEmpty()){
             List<BilledProducts> existingListOfBilledProducts = new ArrayList<>(billingRecord.get().getListOfProducts());
             List<BilledProducts>billedProductsList = new ArrayList<>(helperFunction(bill.getBill()));
@@ -100,7 +100,7 @@ public class BillingServiceImpl implements BillingService {
         return billedProductsList;
     }
     public BillingRecord getBill(String billingId){
-        Optional<BillingRecord> billingRecord = billingRepository.findById(billingId);
+        Optional<BillingRecord> billingRecord = billingRepository.findByBillingId(billingId);
         if(!billingRecord.isEmpty()){
             return billingRecord.get();
         }
