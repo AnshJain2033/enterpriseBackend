@@ -16,6 +16,6 @@ import java.util.Optional;
 public interface BillingRepository extends MongoRepository<BillingRecord,String> {
     @Query("{ 'id': { $eq: ?0 } }")
     public Optional<BillingRecord> findByBillingId(String id);
-
+    BilledProducts save(BilledProducts billedProducts);
     public void updateByBillingId(String id, List<BilledProducts> billedProductsList);
 }

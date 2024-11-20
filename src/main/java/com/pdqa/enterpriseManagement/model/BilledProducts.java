@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 @AllArgsConstructor
 @Data
+
 public class BilledProducts {
     private String productId;
     private Integer billingPrice;

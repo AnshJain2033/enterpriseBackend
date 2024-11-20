@@ -22,7 +22,7 @@ public abstract class BillingRepositoryImpl implements BillingRepository {
 
     @Override
     public Optional<BillingRecord> findByBillingId(String billingId) {
-        Query query = new org.springframework.data.mongodb.core.query.Query(Criteria.where("billingId").is(billingId));
+        Query query = new org.springframework.data.mongodb.core.query.Query(Criteria.where("id").is(billingId));
         return Optional.ofNullable(mongoTemplate.findOne(query, BillingRecord.class));
     }
     @Override
