@@ -55,7 +55,7 @@ public class BillingServiceImpl implements BillingService {
         });
         if(!billedProductsList.isEmpty()) {
             BillingRecord billingRecord = new BillingRecord();
-            billingRecord.setBillingId(billingId);
+            billingRecord.setId(billingId);
             billingRecord.setSellingDate(LocalDate.now());
             billingRecord.setListOfProducts(billedProductsList);
             billingRepository.save(billingRecord);
