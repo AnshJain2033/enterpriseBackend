@@ -8,17 +8,18 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
+import org.springframework.stereotype.Repository;
 
 import java.util.Optional;
-
+@Repository
 public abstract class BillingRepositoryImpl implements BillingRepository {
     @Resource
     @Qualifier("enterpriseMongoTemplate")
     private MongoTemplate mongoTemplate;
 
     @Override
-    public Optional<BillingRecord> findByBillingId(String enterpriseId) {
-        Query query = new org.springframework.data.mongodb.core.query.Query(Criteria.where("enterpriseId").is(enterpriseId));
+    public Optional<BillingRecord> findByBillingId(String billingId) {
+        Query query = new org.springframework.data.mongodb.core.query.Query(Criteria.where("billingId").is(billingId));
         return Optional.ofNullable(mongoTemplate.findOne(query, BillingRecord.class));
     }
 

@@ -13,7 +13,8 @@ import java.util.List;
 import java.util.Map;
 
 @Data
-@Document(collation = "enterprisedb")
+@Document(collection ="billingRecord")
+
 public class BillingRecord {
     @Id
     private String billingId;
